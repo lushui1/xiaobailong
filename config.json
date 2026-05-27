@@ -1,0 +1,12 @@
+{
+  "clawbot": {},
+  "voice": {
+    "whisperModel": "small"
+  },
+  "tts": {
+    "ttsProvider": "doubao",
+    "ttsVoiceId": "zh_female_xiaohe_uranus_bigtts",
+    "doubaoKey": "0f9a6c2b-8d91-4f2b-92b0-531c357b24da"
+  },
+  "embedding": {}
+}
