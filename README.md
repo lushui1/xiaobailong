@@ -1,7 +1,7 @@
 # 魔改完成总结
 
 ## 项目信息
-- **原项目**: BaiLongma v2.1.179
+- **原项目**: xiaobailong v2.1.179
 - **魔改后**: MyAI Assistant v1.0.0
 - **位置**: `D:\Download\GoogleDownload\my-ai-assistant`
 - **安装包**: `dist\MyAI Assistant-Setup-1.0.0.exe` (92.47 MB)

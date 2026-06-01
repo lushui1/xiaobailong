@@ -1,4 +1,4 @@
-# Bailongma Windows Release Flow
+# xiaobailong Windows Release Flow
 
 ## Current Version
 
@@ -9,7 +9,7 @@
 - Windows NSIS installer
 - GitHub Releases auto-update metadata
 - First-run activation flow
-- Uninstall clears `%APPDATA%\Bailongma`
+- Uninstall clears `%APPDATA%\xiaobailong`
 - Branded installer assets:
   - `build/icon.ico`
   - `build/installerHeaderIcon.ico`
@@ -19,19 +19,19 @@
 ## Local Build
 
 ```powershell
-cd D:\claude\BaiLongma
+cd D:\claude\xiaobailong
 npm install
 npm run build
 ```
 
 Installer output:
 
-- `D:\claude\BaiLongma\dist\Bailongma Setup 0.1.1.exe`
-- `D:\claude\BaiLongma\dist\latest.yml`
+- `D:\claude\xiaobailong\dist\xiaobailong Setup 0.1.1.exe`
+- `D:\claude\xiaobailong\dist\latest.yml`
 
 ## Local Verification Checklist
 
-1. Install `Bailongma Setup 0.1.1.exe`.
+1. Install `xiaobailong Setup 0.1.1.exe`.
 2. Launch the app and confirm the activation page appears on first run.
 3. Enter a valid API key and verify the app enters `brain-ui`.
 4. Uninstall the app.
@@ -46,16 +46,16 @@ Installer output:
 4. Set the token in the current shell.
 
 ```powershell
-cd D:\claude\BaiLongma
+cd D:\claude\xiaobailong
 $env:GH_TOKEN = "ghp_your_token"
 npm run publish
 ```
 
 Published artifacts:
 
-- GitHub Release asset: `Bailongma Setup 0.1.1.exe`
+- GitHub Release asset: `xiaobailong Setup 0.1.1.exe`
 - GitHub Release asset: `latest.yml`
-- GitHub Release asset: `Bailongma Setup 0.1.1.exe.blockmap`
+- GitHub Release asset: `xiaobailong Setup 0.1.1.exe.blockmap`
 
 ## Notes On First Launch Of The Installer
 

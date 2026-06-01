@@ -210,4 +210,4 @@ ACI 实现后，注入器（injector.js）的职责从：
 
 ---
 
-*Yuanda + Claude Opus 4.7 · BaiLongma Project · 2026-04-22*
+*Yuanda + Claude Opus 4.7 · xiaobailong Project · 2026-04-22*

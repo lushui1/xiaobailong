@@ -598,4 +598,4 @@ ACI Phase 1（向量检索）虽然没落地，但 Phase 1 不强依赖它——
 
 > **让 Agent 像 Jarvis 一样：默默看着，必要时画给你看。**
 
-*Yuanda + Claude Opus 4.7 · BaiLongma Project · 2026-04-27*
+*Yuanda + Claude Opus 4.7 · xiaobailong Project · 2026-04-27*

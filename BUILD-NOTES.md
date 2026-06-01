@@ -94,7 +94,7 @@ rm -rf dist
 NODE_OPTIONS=--max-old-space-size=4096 npm run build
 ```
 
-产物路径：`dist/Bailongma Setup <version>.exe`
+产物路径：`dist/xiaobailong Setup <version>.exe`
 
 ---
 
