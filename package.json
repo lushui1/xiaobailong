@@ -94,7 +94,7 @@
             "shortcutName": "MyAI Assistant"
         },
         "mac": {
-            "icon": "build/icon.ico",
+            "icon": "build/icon.png",
             "category": "public.app-category.productivity",
             "target": [
                 {
