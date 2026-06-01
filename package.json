@@ -1,110 +1,114 @@
 {
-    "name":  "my-ai-assistant",
-    "productName":  "MyAI Assistant",
-    "version":  "1.0.0",
-    "description":  "涓汉 AI 妗岄潰鍔╂墜 - 鏀寔灏忕背 mimo TTS",
-    "type":  "module",
-    "main":  "electron/main.cjs",
-    "author":  {
-                   "name":  "D.KING"
-               },
-    "scripts":  {
-                    "start":  "electron .",
-                    "start:backend":  "node --env-file=.env src/index.js",
-                    "dev":  "node --env-file=.env --watch src/index.js",
-                    "build":  "electron-builder --win",
-                    "postinstall":  "electron-builder install-app-deps"
-                },
-    "dependencies":  {
-                         "better-sqlite3":  "^12.8.0",
-                         "d3":  "^7.9.0",
-                         "electron-updater":  "^6.3.9",
-                         "openai":  "^6.34.0",
-                         "wechat-ilink-client":  "^0.1.0",
-                         "ws":  "^8.20.1"
-                     },
-    "devDependencies":  {
-                            "@electron/rebuild":  "^4.0.4",
-                            "electron":  "^33.2.0",
-                            "electron-builder":  "^25.1.8",
-                            "playwright":  "^1.59.1"
-                        },
-    "build":  {
-                  "appId":  "com.dking.myaiassistant",
-                  "productName":  "MyAI Assistant",
-                  "artifactName":  "${productName}-Setup-${version}.${ext}",
-                  "npmRebuild":  false,
-                  "asar":  true,
-                  "asarUnpack":  [
-                                     "**/node_modules/better-sqlite3/**",
-                                     "src/voice/**"
-                                 ],
-                  "files":  [
-                                "electron/**/*",
-                                "src/**/*",
-                                "scripts/seed-memories.js",
-                                "index.html",
-                                "dashboard.html",
-                                "brain.html",
-                                "brain-ui.html",
-                                "website.html",
-                                "systemPrompt.html",
-                                "activation.html",
-                                "focus-banner.html",
-                                "build/icon.ico",
-                                "sandbox/**/*",
-                                "music/**/*",
-                                "package.json",
-                                "!**/*.map",
-                                "!src/test-*",
-                                "!src/**/test-*",
-                                "!scripts/smoke-*.mjs",
-                                "!src/**/__pycache__/**",
-                                "!src/**/*.pyc",
-                                "!**/node_modules/*/{CHANGELOG.md,README.md,readme.md,*.d.ts}",
-                                "!**/node_modules/.cache",
-                                "!**/.vscode",
-                                "!data/**/*"
-                            ],
-                  "directories":  {
-                                      "buildResources":  "build",
-                                      "output":  "dist"
-                                  },
-                  "win":  {
-                              "icon":  "build/icon.ico",
-                              "target":  [
-                                             {
-                                                 "target":  "nsis",
-                                                 "arch":  [
-                                                              "x64"
-                                                          ]
-                                             }
-                                         ]
-                          },
-                  "nsis":  {
-                               "oneClick":  false,
-                               "perMachine":  false,
-                               "allowToChangeInstallationDirectory":  true,
-                               "deleteAppDataOnUninstall":  true,
-                               "installerHeaderIcon":  "build/installerHeaderIcon.ico",
-                               "installerSidebar":  "build/installerSidebar.bmp",
-                               "uninstallerSidebar":  "build/uninstallerSidebar.bmp",
-                               "createDesktopShortcut":  true,
-                               "createStartMenuShortcut":  true,
-                               "shortcutName":  "MyAI Assistant"
-                           },
-                  "mac":  {
-                              "icon":  "build/icon.ico",
-                              "category":  "public.app-category.productivity",
-                              "target":  [
-                                             {
-                                                 "target":  "dmg",
-                                                 "arch":  [
-                                                              "x64",
-                                                              "arm64"
-                                                          ]
-                                             }
-                                         ]
-                          }
-              }
+    "name": "xiaobailong",
+    "productName": "MyAI Assistant",
+    "version": "1.0.0",
+    "description": "涓汉 AI 妗岄潰鍔╂墜 - 鏀寔灏忕背 mimo TTS",
+    "type": "module",
+    "main": "electron/main.cjs",
+    "author": {
+        "name": "D.KING"
+    },
+    "scripts": {
+        "start": "electron .",
+        "start:backend": "node --env-file=.env src/index.js",
+        "dev": "node --env-file=.env --watch src/index.js",
+        "build": "electron-builder --win",
+        "postinstall": "electron-builder install-app-deps"
+    },
+    "dependencies": {
+        "better-sqlite3": "^12.8.0",
+        "d3": "^7.9.0",
+        "electron-updater": "^6.3.9",
+        "openai": "^6.34.0",
+        "wechat-ilink-client": "^0.1.0",
+        "ws": "^8.20.1"
+    },
+    "devDependencies": {
+        "@electron/rebuild": "^4.0.4",
+        "electron": "^33.2.0",
+        "electron-builder": "^25.1.8",
+        "playwright": "^1.59.1"
+    },
+    "build": {
+        "appId": "com.dking.myaiassistant",
+        "productName": "MyAI Assistant",
+        "artifactName": "${productName}-Setup-${version}.${ext}",
+        "npmRebuild": false,
+        "asar": true,
+        "asarUnpack": [
+            "**/node_modules/better-sqlite3/**",
+            "src/voice/**"
+        ],
+        "files": [
+            "electron/**/*",
+            "src/**/*",
+            "scripts/seed-memories.js",
+            "index.html",
+            "dashboard.html",
+            "brain.html",
+            "brain-ui.html",
+            "website.html",
+            "systemPrompt.html",
+            "activation.html",
+            "focus-banner.html",
+            "build/icon.ico",
+            "sandbox/**/*",
+            "music/**/*",
+            "package.json",
+            "!**/*.map",
+            "!src/test-*",
+            "!src/**/test-*",
+            "!scripts/smoke-*.mjs",
+            "!src/**/__pycache__/**",
+            "!src/**/*.pyc",
+            "!**/node_modules/*/{CHANGELOG.md,README.md,readme.md,*.d.ts}",
+            "!**/node_modules/.cache",
+            "!**/.vscode",
+            "!data/**/*"
+        ],
+        "directories": {
+            "buildResources": "build",
+            "output": "dist"
+        },
+        "win": {
+            "icon": "build/icon.ico",
+            "target": [
+                {
+                    "target": "nsis",
+                    "arch": [
+                        "x64"
+                    ]
+                }
+            ]
+        },
+        "nsis": {
+            "oneClick": false,
+            "perMachine": false,
+            "allowToChangeInstallationDirectory": true,
+            "deleteAppDataOnUninstall": true,
+            "installerHeaderIcon": "build/installerHeaderIcon.ico",
+            "installerSidebar": "build/installerSidebar.bmp",
+            "uninstallerSidebar": "build/uninstallerSidebar.bmp",
+            "createDesktopShortcut": true,
+            "createStartMenuShortcut": true,
+            "shortcutName": "MyAI Assistant"
+        },
+        "mac": {
+            "icon": "build/icon.ico",
+            "category": "public.app-category.productivity",
+            "target": [
+                {
+                    "target": "dmg",
+                    "arch": [
+                        "x64",
+                        "arm64"
+                    ]
+                }
+            ]
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lushui1/xiaobailong.git"
+    }
 }
