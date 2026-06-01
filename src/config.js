@@ -1,6 +1,7 @@
 import fs from 'fs'
 import { paths } from './paths.js'
 
+export const MIMO_PROVIDER = 'mimo'
 export const DEEPSEEK_PROVIDER = 'deepseek'
 export const MINIMAX_PROVIDER = 'minimax'
 export const OPENAI_PROVIDER = 'openai'
@@ -8,12 +9,31 @@ export const QWEN_PROVIDER = 'qwen'
 export const MOONSHOT_PROVIDER = 'moonshot'
 export const ZHIPU_PROVIDER = 'zhipu'
 
+export const DEFAULT_MIMO_MODEL = 'mimo-v2.5-pro'
 export const DEFAULT_DEEPSEEK_MODEL = 'deepseek-v4-flash'
 export const DEFAULT_MINIMAX_MODEL = 'MiniMax-M2.7'
 export const DEFAULT_OPENAI_MODEL = 'gpt-4o-mini'
 export const DEFAULT_QWEN_MODEL = 'qwen-turbo'
 export const DEFAULT_MOONSHOT_MODEL = 'moonshot-v1-8k'
 export const DEFAULT_ZHIPU_MODEL = 'glm-4-flash'
+
+export const MIMO_MODELS = [
+  {
+    id: 'mimo-v2.5-pro',
+    label: 'mimo-v2.5-pro',
+    deprecated: false,
+  },
+  {
+    id: 'mimo-v2.5',
+    label: 'mimo-v2.5',
+    deprecated: false,
+  },
+  {
+    id: 'mimo-v2-pro',
+    label: 'mimo-v2-pro',
+    deprecated: false,
+  },
+]
 
 export const DEEPSEEK_MODELS = [
   {
@@ -104,6 +124,13 @@ export const ZHIPU_MODELS = [
 ]
 
 const PROVIDER_CONFIG = {
+  [MIMO_PROVIDER]: {
+    label: '小米 mimo',
+    baseURL: 'https://token-plan-cn.xiaomimimo.com/v1',
+    envVar: 'MIMO_API_KEY',
+    models: MIMO_MODELS,
+    defaultModel: DEFAULT_MIMO_MODEL,
+  },
   [DEEPSEEK_PROVIDER]: {
     label: 'DeepSeek',
     baseURL: 'https://api.deepseek.com',
@@ -676,6 +703,7 @@ const TTS_CONFIG_KEYS = [
   'openaiTtsKey', 'openaiTtsBaseURL',
   'elevenLabsKey',
   'volcanoAppId', 'volcanoToken',
+  'mimoKey', 'mimoBaseURL',
 ]
 
 export function getTTSConfig() {
@@ -714,6 +742,8 @@ export function getTTSCredentials() {
     elevenLabsKey:  stored.elevenLabsKey || '',
     volcanoAppId:   stored.volcanoAppId  || '',
     volcanoToken:   stored.volcanoToken  || '',
+    mimoKey:        stored.mimoKey || process.env.MIMO_API_KEY || '',
+    mimoBaseURL:    stored.mimoBaseURL || process.env.MIMO_BASE_URL || 'https://token-plan-cn.xiaomimimo.com',
   }
 }
 

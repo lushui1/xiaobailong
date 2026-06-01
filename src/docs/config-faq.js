@@ -1,4 +1,4 @@
-// 模型配置 & 微信/社交平台配置文档
+﻿// 模型配置 & 微信/社交平台配置文档
 
 export const CONFIG_TOPICS = {
   model_config: {
@@ -24,7 +24,7 @@ export const CONFIG_TOPICS = {
       },
       {
         title: 'DeepSeek 配置（首选推荐）',
-        content: `白龙马首选大模型，国产高性能、性价比出色、中文效果好。
+        content: `小白龙首选大模型，国产高性能、性价比出色、中文效果好。
 
 ■ 官网：https://deepseek.com
 ■ 字段：apiKey（格式：sk-xxxxxxxx）

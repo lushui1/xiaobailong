@@ -1,4 +1,4 @@
-import { getInstalledToolSchema } from './marketplace/index.js'
+// marketplace module removed
 
 // 所有工具的 schema 定义
 export const TOOL_SCHEMAS = {
@@ -47,7 +47,7 @@ export const TOOL_SCHEMAS = {
           },
           channel: {
             type: 'string',
-            enum: ['WECHAT', 'DISCORD', 'FEISHU', 'WECOM', 'TUI', 'AUTO'],
+            enum: ['WECHAT', 'TUI', 'AUTO'],
             description: 'Optional delivery channel. AUTO (default) follows the channel of the user\'s most recent message — if they last reached you on WECHAT, your message goes to WECHAT (this also holds for follow-ups triggered later by reminders or ticks). Pass an explicit channel (e.g. TUI for long-form output that belongs on the local UI) to override.'
           }
         },
@@ -1072,7 +1072,7 @@ To play music, use media_mode with mode=music and src=file_path to show the reco
     type: 'function',
     function: {
       name: 'grant_agent_delegation',
-      description: '记录用户对 Agent 委托权限的决定。当用户明确表示同意或拒绝让 Bailongma 指挥其他 AI 小伙伴工作时调用此工具落盘。只调用一次，之后不再重复询问。',
+      description: '记录用户对 Agent 委托权限的决定。当用户明确表示同意或拒绝让 XiaoBaiLong 指挥其他 AI 小伙伴工作时调用此工具落盘。只调用一次，之后不再重复询问。',
       parameters: {
         type: 'object',
         properties: {
@@ -1198,7 +1198,7 @@ export function getToolSchemas(toolNames) {
     // but we don't expose it to the model. The model should use
     // `send_message` for outbound text messages.
     .filter(name => name !== 'express')
-    .map(name => TOOL_SCHEMAS[name] ?? getInstalledToolSchema(name))
+    .map(name => TOOL_SCHEMAS[name])
     .filter(Boolean)
     // 剥离识别器专用元数据，避免发给 LLM API
     .map(({ recognizer_highlights, ...rest }) => rest)

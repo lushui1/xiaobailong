@@ -10,7 +10,7 @@ const createGraphStage = () => `
 const createPrimaryPanel = () => `
 <aside id="panel-l1" class="panel">
   <header class="panel-identity">
-    <div class="brand-mark"></div>
+    <img class="brand-mark" src="/src/ui/brain-ui/avatar.png" alt="avatar">
     <div class="brand-copy">
       <div class="eyebrow">认知界面</div>
       <div class="brand-title" id="agent-brand-name">Longma AI Agent</div>

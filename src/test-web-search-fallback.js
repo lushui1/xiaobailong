@@ -1,5 +1,5 @@
-// 独立测试：故意搞坏配置，验证 fallback 链 + 失败聚合 + Bing 解包等
-// 用法：cd D:\claude\BaiLongma && node src/test-web-search-fallback.js
+﻿// 独立测试：故意搞坏配置，验证 fallback 链 + 失败聚合 + Bing 解包等
+// 用法：cd D:\claude\XiaoBaiLong && node src/test-web-search-fallback.js
 
 // !! 在 import executor 之前先污染环境，确保 readWebConfig 第一次读到的就是坏值
 process.env.SERPER_API_KEY = 'INVALID_KEY_FOR_FALLBACK_TEST'

@@ -13,7 +13,7 @@ import {
   markUISignalsConsumed,
 } from '../db.js'
 import { getActiveUICards } from '../events.js'
-import { getInstalledToolNames } from '../capabilities/marketplace/index.js'
+// marketplace module removed
 import { PRIMARY_USER_ID } from '../identity.js'
 import { extractKeywords } from './keywords.js'
 import { parseTemporalHints, stripTemporalWords } from './temporal-parser.js'
@@ -364,7 +364,7 @@ export async function runInjector({ message, state, hint = '' }) {
 
   const { listCapabilities } = await import('../providers/registry.js')
   const mmCaps = listCapabilities()
-  const installedNames = getInstalledToolNames()
+  const installedNames = []
   const isTick = !senderId && /^TICK\s/i.test(message?.trim())
 
   const tools = selectTools({

@@ -1,4 +1,4 @@
-// 声波点云球 + 云端 ASR 语音输入面板
+﻿// 声波点云球 + 云端 ASR 语音输入面板
 // 云端 ASR（阿里云/腾讯云/讯飞），通过后端 WebSocket 代理
 //
 // 点云算法移植自 ACUI (Remix)/Voice Component.html
@@ -82,8 +82,8 @@ const SOUND_EVENT_ICONS = {
 };
 
 const CLOUD_WS_URL  = 'ws://127.0.0.1:3721/voice/cloud';
-const VOICE_THRESHOLD_KEY = 'bailongma-voice-threshold';
-const VOICE_PROVIDER_KEY = 'bailongma-voice-provider';
+const VOICE_THRESHOLD_KEY = 'xiaobailong-voice-threshold';
+const VOICE_PROVIDER_KEY = 'xiaobailong-voice-provider';
 
 // 从 localStorage 读取灵敏度阈值，支持运行时动态修改
 function getVoiceThreshold() {
@@ -698,7 +698,7 @@ export function initVoicePanel({
     tick();
   }
 
-  window.bailongmaVoice = {
+  window.xiaobailongVoice = {
     isActive: () => micActive,
     // 视频/音乐模式：完全停止 mic（不需要打断能力）
     suspendForMedia: () => {
@@ -730,24 +730,24 @@ export function initVoicePanel({
     pttEnd,
   };
 
-  window.addEventListener('bailongma:video-mode', (event) => {
+  window.addEventListener('xiaobailong:video-mode', (event) => {
     if (event.detail?.active) {
-      window.bailongmaVoice.suspendForMedia();
+      window.xiaobailongVoice.suspendForMedia();
     } else {
-      window.bailongmaVoice.resumeAfterMedia();
+      window.xiaobailongVoice.resumeAfterMedia();
     }
   });
 
-  window.addEventListener('bailongma:music-mode', (event) => {
+  window.addEventListener('xiaobailong:music-mode', (event) => {
     if (event.detail?.active) {
-      window.bailongmaVoice.suspendForMedia();
+      window.xiaobailongVoice.suspendForMedia();
     } else {
-      window.bailongmaVoice.resumeAfterMedia();
+      window.xiaobailongVoice.resumeAfterMedia();
     }
   });
 
   // 阈值实时更新（设置面板保存后立即生效，无需重启语音）
-  window.addEventListener('bailongma:voice-threshold', (event) => {
+  window.addEventListener('xiaobailong:voice-threshold', (event) => {
     const t = Number(event.detail?.threshold);
     if (!isNaN(t) && t > 0) {
       nearFieldGate.noiseFloor = t * 0.375;

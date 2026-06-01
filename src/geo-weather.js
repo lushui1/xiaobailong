@@ -64,7 +64,7 @@ async function fetchLocation() {
   // User-Agent 是 Nominatim 免费使用协议要求
   const nominatim = await fetchJSON(
     'https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lon + '&format=json&accept-language=zh',
-    { headers: { 'User-Agent': 'BaiLongma/2.0 (personal-assistant; contact: user@example.com)' } },
+    { headers: { 'User-Agent': 'XiaoBaiLong/2.0 (personal-assistant; contact: user@example.com)' } },
     10000
   )
 

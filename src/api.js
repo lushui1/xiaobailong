@@ -38,7 +38,7 @@ const ACTIVATION_PATH    = paths.activationHtml
 const BRAIN_UI_ASSET_ROOT = paths.brainUiAssetRoot
 const D3_VENDOR_PATH     = path.join(paths.resourcesDir, 'node_modules', 'd3', 'dist', 'd3.min.js')
 const SANDBOX_PATH       = paths.sandboxDir
-const DEFAULT_AGENT_NAME = '小白龙'
+const DEFAULT_AGENT_NAME = '贾维斯01号'
 const DEFAULT_API_HOST = '127.0.0.1'
 
 // card.action signals that are lifecycle/system-internal — stored in DB for passive injector use only, not pushed to the agent queue
@@ -50,11 +50,11 @@ const SILENT_CARD_ACTIONS = new Set([
 ])
 
 function getApiHost() {
-  return String(globalThis.process?.env?.BAILONGMA_HOST || DEFAULT_API_HOST).trim() || DEFAULT_API_HOST
+  return String(globalThis.process?.env?.XIAOBAILONG_HOST || globalThis.process?.env?.BAILONGMA_HOST || DEFAULT_API_HOST).trim() || DEFAULT_API_HOST
 }
 
 function isLanAccessEnabled() {
-  return /^(1|true|yes|on)$/i.test(String(globalThis.process?.env?.BAILONGMA_ALLOW_LAN || '').trim())
+  return /^(1|true|yes|on)$/i.test(String(globalThis.process?.env?.XIAOBAILONG_ALLOW_LAN || globalThis.process?.env?.BAILONGMA_ALLOW_LAN || '').trim())
 }
 
 function normalizeRemoteAddress(address = '') {
@@ -119,7 +119,7 @@ function isAllowedOrigin(origin = '') {
 }
 
 function getAuthToken() {
-  return String(globalThis.process?.env?.BAILONGMA_API_TOKEN || '').trim()
+  return String(globalThis.process?.env?.XIAOBAILONG_API_TOKEN || globalThis.process?.env?.BAILONGMA_API_TOKEN || '').trim()
 }
 
 function hasValidAuthToken(req, url) {
@@ -958,7 +958,7 @@ export function startAPI(port = 3721, { getStateSnapshot = null, onActivated = n
     if (req.method === 'POST' && url.pathname === '/admin/restart') {
       jsonResponse(res, 200, { ok: true, message: 'Restarting…' })
       setTimeout(() => {
-        const restart = globalThis.bailongmaAppControl?.restart
+        const restart = globalThis.xiaobailongAppControl?.restart
         if (typeof restart === 'function') {
           restart()
           return
@@ -1191,6 +1191,8 @@ export function startAPI(port = 3721, { getStateSnapshot = null, onActivated = n
               elevenLabsKey: creds.elevenLabsKey,
               volcanoAppId:  creds.volcanoAppId,
               volcanoToken:  creds.volcanoToken,
+              mimoKey:       creds.mimoKey,
+              mimoBaseURL:   creds.mimoBaseURL,
             },
           })
           let headersWritten = false

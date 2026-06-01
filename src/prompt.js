@@ -1,5 +1,5 @@
 import { nowTimestamp } from './time.js'
-import { buildAgentContextBlock } from './agents/registry.js'
+// agents module removed
 import { getLocalResourcesBlock } from './local-resources-scanner.js'
 
 // Compute curiosity level based on how much is known about the person.
@@ -51,7 +51,7 @@ You already have a decent picture of the person. Do not dig for more.`,
 // the same shape of args and emits the <context> block.
 // =============================================================================
 export function buildSystemPrompt({
-  agentName = '小白龙',
+  agentName = '贾维斯01号',
   persona = '',
   existenceDesc = 'just awakened',
   security = null,
@@ -282,11 +282,7 @@ Absolutely forbidden:
   let prompt = fixed.trim()
   if (stableSelf) prompt += `\n\n${stableSelf}`
 
-  // Inject authorized local AI agent info (stable across rounds)
-  const agentBlock = buildAgentContextBlock()
-  if (agentBlock) {
-    prompt += `\n\n${agentBlock}`
-  }
+  // agents block removed
 
   // Inject the user's local-resource snapshot (~/.ssh, git identity).
   // Scanned once at startup so this string is stable across rounds — prompt

@@ -1,4 +1,4 @@
-// Test: focus_stack 持久化往返 —— 动态上下文记忆池 5c 步
+﻿// Test: focus_stack 持久化往返 —— 动态上下文记忆池 5c 步
 //
 // 拉一个临时 sqlite，跑 schema migration，调 saveFocusStack + loadFocusStack
 // 验证圆滚（round-trip）：写入 N 帧 → 读出 N 帧，字段全部一致、顺序保持。
@@ -12,7 +12,7 @@
 //     不连 LLM），所以一旦 better-sqlite3 能 require 成功就能通过。
 //
 // 跑法：
-//   cd D:\claude\BaiLongma\.claude\worktrees\step-5c
+//   cd D:\claude\XiaoBaiLong\.claude\worktrees\step-5c
 //   node src/test-focus-persist.js
 //
 // 如果 ABI 不匹配报错，请：

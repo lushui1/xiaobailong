@@ -73,7 +73,7 @@ async function fetchHackerNews() {
 async function fetchReddit() {
   const data = await fetchJSON(
     'https://www.reddit.com/r/worldnews/hot.json?limit=12',
-    { headers: { 'User-Agent': 'BaiLongma/2.0 (personal-assistant)' } },
+    { headers: { 'User-Agent': 'XiaoBaiLong/2.0 (personal-assistant)' } },
     8000
   )
   if (!Array.isArray(data?.data?.children)) return null

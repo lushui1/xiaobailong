@@ -4,6 +4,7 @@
 import { Readable, Transform } from 'stream'
 
 export const TTS_PROVIDERS = [
+  { id: 'mimo',        label: '小米 mimo',     streaming: false },
   { id: 'doubao',      label: '豆包（方舟）',   streaming: true  },
   { id: 'minimax',     label: 'MiniMax',       streaming: false },
   { id: 'openai',      label: 'OpenAI TTS',   streaming: true  },
@@ -12,6 +13,9 @@ export const TTS_PROVIDERS = [
 ]
 
 export const TTS_VOICES = {
+  mimo: [
+    { id: 'default', label: '默认声音' },
+  ],
   doubao: [
     { id: 'zh_female_xiaohe_uranus_bigtts',          label: '小何 2.0（女声，通用）' },
     { id: 'zh_female_vv_uranus_bigtts',              label: 'Vivi 2.0（女声，通用/多语种）' },
@@ -143,7 +147,7 @@ async function streamDoubao({
     method: 'POST',
     headers,
     body: JSON.stringify({
-      user: { uid: 'bailongma' },
+      user: { uid: 'xiaobailong' },
       req_params: {
         text,
         speaker,
@@ -254,7 +258,7 @@ async function streamVolcano({ text, voiceId = 'BV001_streaming', appId, token }
     },
     body: JSON.stringify({
       app: { appid: appId, token, cluster: 'volcano_tts' },
-      user: { uid: 'bailongma' },
+      user: { uid: 'xiaobailong' },
       audio: {
         voice_type: voiceId,
         encoding: 'mp3',
@@ -282,10 +286,41 @@ async function streamVolcano({ text, voiceId = 'BV001_streaming', appId, token }
   return Readable.from([buf])
 }
 
+// ── 小米 mimo TTS ─────────────────────────────────────────────────────────────
+// 通过 chat completions 接口调用，返回 base64 编码的 WAV 音频
+async function streamMimo({ text, voiceId = 'default', apiKey, baseURL = 'https://token-plan-cn.xiaomimimo.com' }) {
+  if (!apiKey) throw new Error('mimo TTS: 缺少 API Key，请在设置中填写')
+  const resp = await fetch(`${baseURL.replace(/\/$/, '')}/v1/chat/completions`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      model: 'mimo-v2.5-tts',
+      messages: [
+        { role: 'user', content: '请朗读以下内容' },
+        { role: 'assistant', content: text }
+      ]
+    })
+  })
+  if (!resp.ok) {
+    const err = await resp.text()
+    throw new Error(`mimo TTS 失败 (${resp.status}): ${err.slice(0, 300)}`)
+  }
+  const data = await resp.json()
+  const audioBase64 = data?.choices?.[0]?.message?.audio?.data
+  if (!audioBase64) throw new Error('mimo TTS: 响应中无音频数据')
+  const buf = Buffer.from(audioBase64, 'base64')
+  return Readable.from([buf])
+}
+
 // ── 通用入口 ────────────────────────────────────────────────────────────────
 export async function streamTTS({ text, provider, voiceId, keys = {} }) {
   if (!text?.trim()) throw new Error('TTS: 文本为空')
   switch (provider) {
+    case 'mimo':
+      return streamMimo({ text, voiceId, apiKey: keys.mimoKey, baseURL: keys.mimoBaseURL })
     case 'doubao':
       return streamDoubao({
         text,

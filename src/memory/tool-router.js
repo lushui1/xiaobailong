@@ -1,4 +1,4 @@
-// 按需注入工具选择器（动态上下文记忆池第 4 步）。
+﻿// 按需注入工具选择器（动态上下文记忆池第 4 步）。
 //
 // 之前 injector.js 把约 35-40 个工具 schema 全量塞进每轮 LLM 调用的 tools
 // 字段，单这一项就占 6-9K token。这里按"领域 + 意图"分组，只注入这轮真正
@@ -28,7 +28,7 @@
 
 // ---- 工具分组 ----
 //
-// core：任何场景都注入。ACUI 工具默认带上（白龙马侧 Phase 1 决策，组件少 token 便宜）。
+// core：任何场景都注入。ACUI 工具默认带上（小白龙侧 Phase 1 决策，组件少 token 便宜）。
 const CORE_TOOLS = [
   'send_message',
   'recall_memory',
@@ -243,7 +243,7 @@ export function selectTools(ctx = {}) {
 
   // —— ActionLog 保活 ——
   // 上轮（或最近 10 次）调用过的工具强制带上：跨轮工作流不能因为关键词没命中就断链。
-  // 保活只覆盖白龙马的"已知工具"——installed 工具走单独的全注入路径。
+  // 保活只覆盖小白龙的"已知工具"——installed 工具走单独的全注入路径。
   if (Array.isArray(recentActionLog)) {
     for (const entry of recentActionLog) {
       const name = entry?.tool

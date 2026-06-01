@@ -25,7 +25,7 @@ export function startTUI(userId = 'ID:000001') {
   })
 
   rl.on('close', () => {
-    console.log('\nJarvis 关闭中...')
+    console.log('\nXiaoBaiLong 关闭中...')
     process.exit(0)
   })
 }

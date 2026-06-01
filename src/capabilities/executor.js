@@ -14,8 +14,8 @@ import { setHotspotPanelState, getHotspotPanelState } from '../hotspots.js'
 import { setPersonCardPanelState, getPersonCardPanelState, getPersonCard } from '../person-cards.js'
 import { setDocPanelState, getDocPanelState } from '../docs.js'
 import { setUserLocation } from '../weather.js'
-import { getAgentById, isDelegationAllowed } from '../agents/registry.js'
-import { installTool, uninstallTool, listInstalledTools, isInstalledTool, executeInstalledTool } from './marketplace/index.js'
+// agents module removed
+// marketplace module removed
 import { TOOL_SCHEMAS } from './schemas.js'
 
 // 后台进程注册表：pid → { process, command, startedAt, outputLines }
@@ -484,9 +484,9 @@ async function executeToolUnchecked(name, args, context = {}) {
       case 'recall_memory':
         return await execRecallMemory(args, context)
       case 'install_tool':
-        return await execInstallTool(args)
+        return toolJson({ ok: false, error: '工具安装功能已禁用。' })
       case 'uninstall_tool':
-        return execUninstallTool(args)
+        return toolJson({ ok: false, error: '工具卸载功能已禁用。' })
       case 'list_tools':
         return execListTools()
       case 'connect_wechat':
@@ -494,9 +494,6 @@ async function executeToolUnchecked(name, args, context = {}) {
       case 'set_security':
         return execSetSecurity(args)
       default:
-        if (isInstalledTool(name)) {
-          return await executeInstalledTool(name, args)
-        }
         return `错误：未知工具 "${name}"`
     }
   } catch (err) {
@@ -2313,23 +2310,12 @@ async function execSpeak(args) {
 
 // ─── 工具市场执行函数 ──────────────────────────────────────────────────────────
 
-async function execInstallTool(args) {
-  const { name, description, parameters_schema, code } = args
-  return await installTool({ name, description, parameters: parameters_schema, code })
-}
-
-function execUninstallTool(args) {
-  return uninstallTool({ name: args.name })
-}
-
 function execListTools() {
   const builtins = Object.entries(TOOL_SCHEMAS)
     .filter(([name]) => name !== 'express')
     .map(([name, s]) => ({ name, description: s.function.description, source: 'builtin' }))
-  const installed = listInstalledTools()
-  const all = [...builtins, ...installed]
-  const lines = all.map(t => `[${t.source}] ${t.name}: ${t.description}`)
-  return `共 ${all.length} 个工具（${builtins.length} 内置 + ${installed.length} 已安装）：\n\n${lines.join('\n')}`
+  const lines = builtins.map(t => `[${t.source}] ${t.name}: ${t.description}`)
+  return `共 ${builtins.length} 个工具（内置）：\n\n${lines.join('\n')}`
 }
 
 // 语音消息自动回复 TTS：检测到用户用语音输入时，通知前端播放语音
@@ -2596,7 +2582,7 @@ function execPersonCardMode(args = {}) {
 const MUSIC_AUDIO_EXTS = new Set(['.mp3', '.flac', '.wav', '.aac', '.ogg', '.m4a', '.opus'])
 
 async function fetchLrcFromNet(title, artist) {
-  const headers = { 'User-Agent': 'BaiLongma/1.0' }
+  const headers = { 'User-Agent': 'XiaoBaiLong/1.0' }
   // 策略1：精确匹配（title + artist）
   try {
     const params = new URLSearchParams({ track_name: title })
@@ -3274,96 +3260,11 @@ function agentDocsHint(agent) {
 }
 
 async function execDelegateToAgent({ agent_id, prompt: agentPrompt, context: agentContext = '', timeout = 60 }) {
-  if (!isDelegationAllowed()) {
-    return toolJson({ ok: false, error: '尚未获得 Agent 委托权限，请先询问用户并通过 grant_agent_delegation 获取授权。' })
-  }
-
-  const agent = getAgentById(String(agent_id || ''))
-  if (!agent) {
-    return toolJson({ ok: false, error: `未找到 Agent：${agent_id}。请先用 list_known_agents 查看可用列表。` })
-  }
-  if (!agent.available) {
-    return toolJson({
-      ok: false,
-      error: `Agent ${agent.name} 当前不可用（上次检测：${agent.detected_at}）。`,
-      ...agentDocsHint(agent),
-    })
-  }
-
-  const fullPrompt = agentContext
-    ? `${agentContext.trim()}\n\n${agentPrompt.trim()}`
-    : agentPrompt.trim()
-
-  const timeoutSec = Math.min(Math.max(Number(timeout) || 60, 5), 300)
-
-  if (agent.invoke_type === 'cli') {
-    const safePrompt = fullPrompt.replace(/"/g, '\\"').replace(/\n/g, ' ')
-    const cmdArgs = (agent.invokeArgs || []).map(a => a === '{prompt}' ? `"${safePrompt}"` : a).join(' ')
-    const cmd = `${agent.invoke_cmd} ${cmdArgs}`
-    const result = await execCommand({ command: cmd, timeout: timeoutSec, background: false }, {})
-    // CLI 调用失败时注入文档引导
-    try {
-      const parsed = typeof result === 'string' ? JSON.parse(result) : result
-      if (parsed?.ok === false || (parsed?.exit_code !== undefined && parsed.exit_code !== 0)) {
-        return toolJson({ ...parsed, ...agentDocsHint(agent) })
-      }
-    } catch { /* result 不是 JSON，直接返回 */ }
-    return result
-  }
-
-  if (agent.invoke_type === 'http') {
-    const base = agent.invoke_cmd.replace(/\/$/, '')
-    // Ollama API（端口 11434）有专属格式，需要带 model 字段
-    const isOllama = base.includes(':11434')
-    const ollamaModel = agent.notes?.match(/ollama[^)]*\(([^)]+)\)/i)?.[1]
-      || agent.id   // 用 agent id 作为 model 名的兜底
-
-    const endpoints = isOllama
-      ? [{ path: '/api/chat', body: { model: ollamaModel, messages: [{ role: 'user', content: fullPrompt }], stream: false } },
-         { path: '/api/generate', body: { model: ollamaModel, prompt: fullPrompt, stream: false } }]
-      : [{ path: '/api/chat', body: { message: fullPrompt, messages: [{ role: 'user', content: fullPrompt }] } },
-         { path: '/v1/chat/completions', body: { messages: [{ role: 'user', content: fullPrompt }] } },
-         { path: '/chat', body: { message: fullPrompt } },
-         { path: '/query', body: { query: fullPrompt } }]
-
-    for (const ep of endpoints) {
-      try {
-        const res = await fetch(`${base}${ep.path}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(ep.body),
-          signal: AbortSignal.timeout(timeoutSec * 1000),
-        })
-        if (res.ok) {
-          const data = await res.json()
-          const reply = data?.message?.content || data?.response || data?.message
-            || data?.content || data?.choices?.[0]?.message?.content || JSON.stringify(data)
-          return toolJson({ ok: true, agent_id, agent_name: agent.name, reply: String(reply).slice(0, 4000) })
-        }
-      } catch { /* 尝试下一个端点 */ }
-    }
-    return toolJson({
-      ok: false,
-      error: `无法连接到 ${agent.name}（${base}），所有端点均不响应。`,
-      ...agentDocsHint(agent),
-    })
-  }
-
-  return toolJson({ ok: false, error: `不支持的调用类型：${agent.invoke_type}` })
+  return toolJson({ ok: false, error: 'Agent 委托功能已禁用。' })
 }
 
 function execGrantAgentDelegation({ allowed, note = '' }) {
-  try {
-    dbSetConfig('agent_delegation_asked', 'true')
-    dbSetConfig('agent_delegation_allowed', allowed ? 'true' : 'false')
-  } catch (e) {
-    console.error('[Agents] grant_agent_delegation 写入失败：', e.message)
-    return toolJson({ ok: false, error: e.message })
-  }
-  const msg = allowed
-    ? `已记录授权：Bailongma 可以指挥本地 AI 小伙伴工作。`
-    : `已记录：用户暂不授权 Agent 委托功能。`
-  return toolJson({ ok: true, allowed: !!allowed, note: String(note || ''), message: msg })
+  return toolJson({ ok: false, error: 'Agent 委托功能已禁用。' })
 }
 
 function normalizeSelfCheckResults(value) {

@@ -1,4 +1,4 @@
-// 语音配置说明文档 & FAQ
+﻿// 语音配置说明文档 & FAQ
 // 结构：每个 topic 包含 title、sections（标题+内容）、providers（服务商列表）
 // 字段名来源：src/config.js 的 VOICE_CONFIG_KEYS / TTS_CONFIG_KEYS
 
@@ -20,7 +20,7 @@ export const DOC_TOPICS = {
       },
       {
         title: '模式一：阿里云百炼 Paraformer（首选推荐，延迟低）',
-        content: `白龙马首选 ASR 方案，阿里云百炼实时语音识别，中文效果出色，延迟低。
+        content: `小白龙首选 ASR 方案，阿里云百炼实时语音识别，中文效果出色，延迟低。
 
 配置字段（POST /settings/voice）：
 ■ aliyunApiKey — 阿里云百炼的 API Key（格式：sk-xxxxxxxxxxxxxxxx）
@@ -97,7 +97,7 @@ export const DOC_TOPICS = {
       },
       {
         title: '豆包语音合成 2.0（首选推荐）',
-        content: `白龙马首选 TTS 方案，字节跳动豆包语音合成 2.0，中文音色丰富，流式输出，延迟低。
+        content: `小白龙首选 TTS 方案，字节跳动豆包语音合成 2.0，中文音色丰富，流式输出，延迟低。
 
 配置字段（POST /settings/tts）：
 ■ ttsProvider = "doubao"
@@ -242,7 +242,7 @@ export const DOC_TOPICS = {
       },
       {
         title: '推荐配置组合',
-        content: `■ 白龙马首选组合（强烈推荐）：
+        content: `■ 小白龙首选组合（强烈推荐）：
   · 大模型：DeepSeek（官网 deepseek.com）
   · 语音识别：阿里云百炼 Paraformer（https://bailian.console.aliyun.com/，字段 aliyunApiKey）
   · 语音合成：豆包语音合成 2.0（https://console.volcengine.com/speech/new/，字段 doubaoKey）

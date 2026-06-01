@@ -1,16 +1,168 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Longma · Cognitive Surface</title>
+<title>AI Assistant · Control Center</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./src/ui/brain-ui/styles.css">
+<link rel="stylesheet" href="./src/ui/brain-ui/sci-fi-override.css">
 <script src="/vendor/d3/d3.min.js"></script>
+<style>
+/* ═══ 科技风叠加层 ═══ */
+/* 注意：body::before 和 body::after 由 styles.css 控制，此处不覆盖 */
+
+/* 扫描线 */
+.scan-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 5%, rgba(0, 210, 255, 0.5), rgba(0, 210, 255, 0.7), rgba(0, 210, 255, 0.5), transparent 95%);
+  z-index: 9999;
+  pointer-events: none;
+  animation: scan 4s linear infinite;
+  box-shadow: 0 0 12px rgba(0, 210, 255, 0.4);
+}
+
+@keyframes scan {
+  0% { top: -3px; }
+  100% { top: 100vh; }
+}
+
+/* 数据流背景 - 增强可见度 */
+.data-stream {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0.4;
+}
+
+.data-stream::before {
+  content: '01001010 11010010 00101010 10110010 01101001 11001010 01010101 10101010 00110011 11100010 01001101 10110100 01100011 10010110 01011010 11010101 00101101 10100110 01110100 10001011';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 212, 255, 0.03) 3px,
+    rgba(0, 212, 255, 0.03) 6px
+  );
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: rgba(0, 212, 255, 0.12);
+  line-height: 1.8;
+  padding: 10px;
+  animation: data-flow 25s linear infinite;
+  word-break: break-all;
+}
+
+@keyframes data-flow {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+/* 角落装饰光效 */
+body::before {
+  /* styles.css 已定义网格，此处不重复 */
+}
+
+/* 四角光晕 */
+.corner-glow {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.15;
+}
+.corner-glow.tl { top: -80px; left: -80px; background: #00d0ff; }
+.corner-glow.tr { top: -80px; right: -80px; background: #00d0ff; }
+.corner-glow.bl { bottom: -80px; left: -80px; background: #00d0ff; }
+.corner-glow.br { bottom: -80px; right: -80px; background: #00d0ff; }
+
+/* HUD 边框线 */
+.hud-border {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+}
+.hud-border.top {
+  top: 0; left: 20px; right: 20px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 210, 255, 0.25), transparent);
+}
+.hud-border.bottom {
+  bottom: 0; left: 20px; right: 20px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 210, 255, 0.25), transparent);
+}
+.hud-border.left {
+  left: 0; top: 20px; bottom: 20px; width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(0, 210, 255, 0.25), transparent);
+}
+.hud-border.right {
+  right: 0; top: 20px; bottom: 20px; width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(0, 210, 255, 0.25), transparent);
+}
+
+/* 时间戳 HUD */
+.hud-timestamp {
+  position: fixed;
+  bottom: 8px;
+  right: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  color: rgba(0, 210, 255, 0.3);
+  letter-spacing: 0.1em;
+  z-index: 9998;
+  pointer-events: none;
+}
+</style>
 </head>
 <body>
+<!-- 粒子动画 Canvas -->
+<canvas id="particle-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+<!-- 科技风叠加层 -->
+<div class="scan-line"></div>
+<div class="data-stream"></div>
+<div class="corner-glow tl"></div>
+<div class="corner-glow tr"></div>
+<div class="corner-glow bl"></div>
+<div class="corner-glow br"></div>
+<div class="hud-border top"></div>
+<div class="hud-border bottom"></div>
+<div class="hud-border left"></div>
+<div class="hud-border right"></div>
+<div class="hud-timestamp" id="hud-time"></div>
+<script>
+  // HUD 时间更新
+  function updateTime() {
+    const el = document.getElementById('hud-time');
+    if (el) {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      el.textContent = h + ':' + m + ':' + s;
+    }
+  }
+  updateTime();
+  setInterval(updateTime, 1000);
+</script>
 <script type="module" src="./src/ui/brain-ui/app.js"></script>
+<script src="./src/ui/brain-ui/particles.js"></script>
 </body>
 </html>

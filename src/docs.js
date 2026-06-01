@@ -105,7 +105,7 @@ export function buildDocPanelStateContext(detectedTopic = null) {
     `open_doc_panel tool rules. Follow strictly:`,
     `- Do not proactively ask the user for API keys. If the user provides a key, help configure it directly and mention that they can test it.`,
     `- Highest priority: when the user explicitly asks to open or view docs, immediately call open_doc_panel(action: "open", topic: "${state.topicId || 'voice_config'}"). No extra condition is required and you must not refuse.`,
-    `- When the user needs voice, model, WeChat, or social-platform configuration help, choose the matching topic and open the panel: voice_asr, voice_tts, voice_config, model_config, or wechat_config. When the user asks about how BaiLongma works, its code architecture, or its internal mechanisms, open self_architecture.`,
+    `- When the user needs voice, model, WeChat, or social-platform configuration help, choose the matching topic and open the panel: voice_asr, voice_tts, voice_config, model_config, or wechat_config. When the user asks about how XiaoBaiLong works, its code architecture, or its internal mechanisms, open self_architecture.`,
     `- If the document panel is open but the current turn is unrelated to any configuration topic, immediately call open_doc_panel(topic: "${state.topicId || 'voice_config'}", action: "close") to close it.`,
   ]
 

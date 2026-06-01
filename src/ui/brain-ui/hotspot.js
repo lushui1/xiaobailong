@@ -1,4 +1,4 @@
-// 热点模式主逻辑 — 切换、热点数据、时钟、实时流
+﻿// 热点模式主逻辑 — 切换、热点数据、时钟、实时流
 
 import { apiUrl } from './api-client.js';
 import { HotspotEarth } from './hotspot-earth.js';
@@ -354,7 +354,7 @@ function setPanelVisible(visible, source = 'brain-ui') {
   const btn = document.getElementById('hotspot-btn');
   if (btn) btn.classList.toggle('active', visible);
 
-  window.dispatchEvent(new CustomEvent('bailongma:hotspot-mode', {
+  window.dispatchEvent(new CustomEvent('xiaobailong:hotspot-mode', {
     detail: { active: visible },
   }));
   reportHotspotState(visible, source);

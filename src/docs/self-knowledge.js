@@ -1,16 +1,16 @@
-// 白龙马自知识文档 —— 解释自身的代码机制与架构
+﻿// 小白龙自知识文档 —— 解释自身的代码机制与架构
 
 export const SELF_KNOWLEDGE_TOPICS = {
   self_architecture: {
     id: 'self_architecture',
-    title: '白龙马架构与运行机制',
-    subtitle: 'How BaiLongma Works',
+    title: '小白龙架构与运行机制',
+    subtitle: 'How XiaoBaiLong Works',
     icon: '⚙',
-    summary: '白龙马（BaiLongma）是一套 Electron + Node.js 混合架构的持续意识框架，版本 2.x。以下是完整的代码机制说明。',
+    summary: '小白龙（XiaoBaiLong）是一套 Electron + Node.js 混合架构的持续意识框架，版本 2.x。以下是完整的代码机制说明。',
     sections: [
       {
         title: '整体架构',
-        content: `白龙马由两层构成：
+        content: `小白龙由两层构成：
 
 ■ Electron 壳（electron/main.cjs）
   - 负责启动桌面窗口、系统托盘、自动更新
@@ -26,7 +26,7 @@ Brain UI 前端通过 WebSocket + REST API 与后端实时通信。`,
       },
       {
         title: '意识循环：心跳驱动',
-        content: `白龙马不等待用户触发，而是持续运行的事件循环：
+        content: `小白龙不等待用户触发，而是持续运行的事件循环：
 
 ■ ticker.js — 心跳节奏器
   - 维护可配置的心跳间隔（默认约 30 秒）
@@ -47,7 +47,7 @@ Brain UI 前端通过 WebSocket + REST API 与后端实时通信。`,
       },
       {
         title: 'L1 / L2 两种入口',
-        content: `白龙马不是"两个人格"，而是同一个 AI 的两种触发入口：
+        content: `小白龙不是"两个人格"，而是同一个 AI 的两种触发入口：
 
 ■ L1（用户消息触发）
   - 用户发消息时激活
@@ -59,7 +59,7 @@ Brain UI 前端通过 WebSocket + REST API 与后端实时通信。`,
   - 无强制回复要求，AI 自行判断是否需要主动发消息
   - 同样拥有 L1 级别的上下文质量：最近对话、记忆、提醒、UI 状态
 
-这种设计让白龙马既能响应用户，又能自主生活。`,
+这种设计让小白龙既能响应用户，又能自主生活。`,
       },
       {
         title: 'LLM 交互：llm.js + prompt.js',
@@ -83,7 +83,7 @@ Brain UI 前端通过 WebSocket + REST API 与后端实时通信。`,
       },
       {
         title: '记忆系统',
-        content: `白龙马有三层记忆机制：
+        content: `小白龙有三层记忆机制：
 
 ■ 短期：对话历史（messages 表）
   - SQLite 持久化，每轮存储
@@ -123,7 +123,7 @@ Brain UI 前端通过 WebSocket + REST API 与后端实时通信。`,
       },
       {
         title: '上下文感知：环境信息采集',
-        content: `白龙马持续感知运行环境：
+        content: `小白龙持续感知运行环境：
 
 ■ context/gatherer.js — 综合上下文采集器
   - 定时采集所有环境信息并注入 Supplemental Context
@@ -243,7 +243,7 @@ export function detectSelfKnowledgeTopic(text) {
   const t = text.toLowerCase()
 
   if (
-    /(你的代码|你.*怎么运行|你.*怎么工作|你.*架构|你.*如何运作|白龙马.*代码|bailongma.*代码|你.*实现|代码机制|运行机制|技术架构|你.*内部|你.*系统|你.*模块|你.*是怎么|你.*如何思考|你.*心跳|意识循环|ticker|queue\.js|control\.js|llm\.js|prompt\.js|memory.*机制|记忆.*系统|工具.*调用|capability|executor|acui.*机制|brain.*ui|l1.*l2|l2.*l1|两个入口|turn.*机制|self.knowledge|自知识)/.test(
+    /(你的代码|你.*怎么运行|你.*怎么工作|你.*架构|你.*如何运作|小白龙.*代码|XiaoBaiLong.*代码|你.*实现|代码机制|运行机制|技术架构|你.*内部|你.*系统|你.*模块|你.*是怎么|你.*如何思考|你.*心跳|意识循环|ticker|queue\.js|control\.js|llm\.js|prompt\.js|memory.*机制|记忆.*系统|工具.*调用|capability|executor|acui.*机制|brain.*ui|l1.*l2|l2.*l1|两个入口|turn.*机制|self.knowledge|自知识)/.test(
       t
     )
   ) {

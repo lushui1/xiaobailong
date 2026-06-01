@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bailongma 激活</title>
+  <title>MyAI Assistant 激活</title>
   <style>
     html, body {
       margin: 0;
@@ -328,8 +328,8 @@
 </head>
 <body>
   <main>
-    <h1>激活 Bailongma</h1>
-    <p class="subtitle">输入 API Key，Bailongma 会自动识别官方模型厂商。</p>
+    <h1>激活 贾维斯01号</h1>
+    <p class="subtitle">输入 API Key，贾维斯01号 会自动识别官方模型厂商。</p>
 
     <div class="model-note">
       支持自动检测 DeepSeek、MiniMax、OpenAI、通义千问、Moonshot、智谱等官方直连端点。
@@ -337,7 +337,7 @@
 
     <!-- AI 名字 -->
     <div class="row">
-      <label for="agentName">给 AI 起个名字 <span style="color:#7a90a8;text-transform:none;letter-spacing:0;font-weight:400;">（可选，留空则用默认"小白龙"）</span></label>
+      <label for="agentName">给 AI 起个名字 <span style="color:#7a90a8;text-transform:none;letter-spacing:0;font-weight:400;">（可选，留空则用默认"贾维斯01号"）</span></label>
       <input id="agentName" type="text" autocomplete="off" spellcheck="false" maxlength="32" placeholder="例如：小白、贾维斯、Tony……" />
     </div>
 
@@ -465,7 +465,7 @@
   </main>
 
   <script>
-    const ACTIVATION_WARMUP_KEY = 'bailongma_activation_warmup_until'
+    const ACTIVATION_WARMUP_KEY = 'myai_activation_warmup_until'
     const ACTIVATION_WARMUP_MS = 2500
 
     const apiKeyInput = document.getElementById('apiKey')
@@ -929,3 +929,4 @@
   </script>
 </body>
 </html>
+

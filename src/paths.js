@@ -2,8 +2,8 @@
 // 而 HTML/静态资源要从应用目录（只读 / asar 内）读。
 //
 // Electron 主进程启动时会通过环境变量注入这两个路径：
-//   BAILONGMA_USER_DIR       - 用户数据目录（可写，存 DB、sandbox、配置）
-//   BAILONGMA_RESOURCES_DIR  - 只读资源目录（存 HTML、UI 资源）
+//   XIAOBAILONG_USER_DIR       - 用户数据目录（可写，存 DB、sandbox、配置）
+//   XIAOBAILONG_RESOURCES_DIR  - 只读资源目录（存 HTML、UI 资源）
 //
 // 开发模式（直接 node src/index.js）下两者都默认到仓库根目录，行为不变。
 
@@ -14,12 +14,12 @@ import { fileURLToPath } from 'url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const REPO_ROOT = path.resolve(__dirname, '..')
 
-const USER_DIR = process.env.BAILONGMA_USER_DIR
-  ? path.resolve(process.env.BAILONGMA_USER_DIR)
+const USER_DIR = process.env.XIAOBAILONG_USER_DIR || process.env.BAILONGMA_USER_DIR
+  ? path.resolve(process.env.XIAOBAILONG_USER_DIR || process.env.BAILONGMA_USER_DIR)
   : REPO_ROOT
 
-const RESOURCES_DIR = process.env.BAILONGMA_RESOURCES_DIR
-  ? path.resolve(process.env.BAILONGMA_RESOURCES_DIR)
+const RESOURCES_DIR = process.env.XIAOBAILONG_RESOURCES_DIR || process.env.BAILONGMA_RESOURCES_DIR
+  ? path.resolve(process.env.XIAOBAILONG_RESOURCES_DIR || process.env.BAILONGMA_RESOURCES_DIR)
   : REPO_ROOT
 
 function ensureDir(dir) {
