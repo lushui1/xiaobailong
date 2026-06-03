@@ -906,6 +906,8 @@ async function runTurn(input, label, msg = null) {
       systemEnv: buildSystemEnv(msg),
       currentChannel: msg ? normalizeChannel(msg.channel || '') : '',
       channelSwitched: detectChannelSwitch(msg, injection.conversationWindow || []),
+      selfPerception: injection.selfPerception || null,
+      selfSnapshot: injection.selfSnapshot || null,
       focusTickCounter: state.tickCounter || 0,
     }
     let contextBlock = buildContextBlock(baseContextArgs)

@@ -18,6 +18,7 @@ import { PRIMARY_USER_ID } from '../identity.js'
 import { extractKeywords } from './keywords.js'
 import { parseTemporalHints, stripTemporalWords } from './temporal-parser.js'
 import { selectTools } from './tool-router.js'
+import { computeSelfPerception, computeSelfSnapshot } from './self-perception.js'
 
 // 旧 import 路径兼容：focus.js / 其他模块也能从 injector 拿到 extractKeywords
 export { extractKeywords }
@@ -380,6 +381,14 @@ export async function runInjector({ message, state, hint = '' }) {
     // fastUserPath 留作未来扩展——目前从 state 上拿不到，selectTools 接受未传即 false
   })
 
+
+    // 自我感知层：检测镜像复读/风格融合/循环退化
+    const selfPerception = computeSelfPerception({
+      conversationWindow,
+      currentMsg: message ? { content: message, fromId: senderId } : null,
+    })
+    const selfSnapshot = computeSelfSnapshot({ conversationWindow, actionLog, agentName })
+
   return {
     memories,
     recallMemories,
@@ -396,6 +405,8 @@ export async function runInjector({ message, state, hint = '' }) {
     uiSignalSummary,
     activeUICards,
     temporalRecall,
+    selfPerception,
+    selfSnapshot,
   }
 }
 

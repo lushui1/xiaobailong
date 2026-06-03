@@ -333,6 +333,8 @@ export function buildContextBlock({
   systemEnv = '',
   currentChannel = '',
   channelSwitched = false,
+  selfPerception = null,
+  selfSnapshot = null,
 } = {}) {
   const sections = []
 
@@ -362,6 +364,22 @@ export function buildContextBlock({
   }
 
   // Behavior constraints — soft, per-round (must be obeyed this turn)
+
+  // <self-snapshot>
+  if (selfSnapshot?.snapshotText) {
+    sections.push(`<self-snapshot>\n${selfSnapshot.snapshotText}\n</self-snapshot>`)
+  }
+
+  // <self-perception>
+  if (selfPerception?.perceptionText) {
+    sections.push(`<self-perception>\n${selfPerception.perceptionText}\n</self-perception>`)
+  }
+
+  // <boundary-state>
+  if (selfPerception?.boundaryState && selfPerception.boundaryState !== 'normal' && selfPerception.boundaryDirective) {
+    sections.push(`<boundary-state name="${selfPerception.boundaryState}">\n${selfPerception.boundaryDirective}\n</boundary-state>`)
+  }
+
   if (constraints?.length > 0) {
     const list = constraints.map(c => `- ${c.content}`).join('\n')
     sections.push(`<constraints>\n${list}\n</constraints>`)
