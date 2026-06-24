@@ -1,10 +1,14 @@
-# 🐉 小白龙 (XiaoBaiLong)
+# 🐉 小白龙 (MyAI Assistant)
 
 **桌面 AI Agent — 你的个人数字助手**
 
 小白龙是一个持续运行的桌面AI助手，基于 Electron + Vue3 构建，集成了大语言模型、语音交互、热点追踪、图片生成等能力，让你拥有一个真正的「贾维斯」式个人助手。
 
-![Version](https://img.shields.io/badge/version-0.0.1-blue)
+> 📌 **基于开源项目 [xiaobailong](https://github.com/lushui1/xiaobailong) v2.1.179 魔改**
+> - 原项目：xiaobailong v2.1.179
+> - 魔改后：MyAI Assistant v1.0.0
+
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Mac-lightgrey)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
