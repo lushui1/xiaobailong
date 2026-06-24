@@ -4,9 +4,11 @@
 
 小白龙是一个持续运行的桌面AI助手，基于 Electron + Vue3 构建，集成了大语言模型、语音交互、热点追踪、图片生成等能力，让你拥有一个真正的「贾维斯」式个人助手。
 
-> 📌 **基于开源项目 [xiaobailong](https://github.com/lushui1/xiaobailong) v2.1.179 魔改**
-> - 原项目：xiaobailong v2.1.179
+> 📌 **基于开源项目 [BaiLongma (白龙马)](https://github.com/xiaoyuanda666-ship-it/BaiLongma) v2.1.179 魔改**
+> - 原项目：BaiLongma v2.1.179
 > - 魔改后：MyAI Assistant v1.0.0
+>
+> 🙏 **特别感谢**：本项目基于 [BaiLongma](https://github.com/xiaoyuanda666-ship-it/BaiLongma) 开发，感谢原作者 [@xiaoyuanda666-ship-it](https://github.com/xiaoyuanda666-ship-it) 的无私开源贡献。白龙马是一个非常优秀的桌面AI Agent框架，提供了完整的LLM对话、记忆系统、语音交互、工具调用等核心能力。没有这个项目，就没有小白龙的诞生。开源精神万岁！🫡
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Mac-lightgrey)
