@@ -234,7 +234,7 @@ console.log('\n>>> 场景 9：boundary-state 段渲染')
 
   // 顺序：snapshot → perception → boundary-state
   const ctxOrder = buildContextBlock({
-    selfSnapshot: { snapshotText: '你是 小白龙。' },
+    selfSnapshot: { snapshotText: '你是 MyAI。' },
     selfPerception: {
       mirror: { exact: true, score: 1, matchedRow: { content: 'x' } },
       style: { hit: false, matched: [] },
@@ -268,9 +268,9 @@ console.log('\n>>> 场景 10：self-snapshot 风格指纹 + 身份锚')
     { tool: 'skip_recognition', timestamp: '2026-05-27T13:55:20.000Z' },
     { tool: 'send_message', timestamp: '2026-05-27T13:56:00.000Z', args_json: '{"content":"好。"}' },
   ]
-  const snap = computeSelfSnapshot({ conversationWindow: window, actionLog, agentName: '小白龙' })
+  const snap = computeSelfSnapshot({ conversationWindow: window, actionLog, agentName: 'MyAI' })
   assert(snap !== null, '有 jarvis 历史时返回 snapshot')
-  assert(snap.snapshotText.includes('小白龙'), 'snapshot 文本以 agent_name 起头')
+  assert(snap.snapshotText.includes('MyAI'), 'snapshot 文本以 agent_name 起头')
   assert(snap.snapshotText.includes('Identity anchor'), 'snapshot 包含身份锚')
   assert(snap.snapshotText.includes('action_log') || snap.snapshotText.includes('send_message'),
     'snapshot 提到用 action_log/send_message 验真')
@@ -278,7 +278,7 @@ console.log('\n>>> 场景 10：self-snapshot 风格指纹 + 身份锚')
   assert(snap.tools && snap.tools.counts.length > 0, 'snapshot 总结了工具习惯')
 
   // 全空：返回 null
-  const empty = computeSelfSnapshot({ conversationWindow: [], actionLog: [], agentName: '小白龙' })
+  const empty = computeSelfSnapshot({ conversationWindow: [], actionLog: [], agentName: 'MyAI' })
   assert(empty === null, '空 history + 空 action_log → null')
 }
 
@@ -293,7 +293,7 @@ console.log('\n>>> 场景 11：self-snapshot 段渲染位置')
 
   // 渲染
   const ctxSnap = buildContextBlock({
-    selfSnapshot: { snapshotText: '你是 小白龙。\n身份锚：...' },
+    selfSnapshot: { snapshotText: '你是 MyAI。\n身份锚：...' },
   })
   assert(ctxSnap.includes('<self-snapshot>'), '有 snapshotText 时渲染')
   assert(ctxSnap.includes('身份锚'), '内容正确写入')

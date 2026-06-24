@@ -47,7 +47,7 @@ assert(!shouldInjectDiagnose({ userMessage: '做一个新的网页' }), '纯新�
 
 console.log('— buildSystemPrompt 集成注入 —')
 {
-  const base = { agentName: '小白龙', persona: '', birthTime: '2026-01-01', userMessage: '' }
+  const base = { agentName: 'MyAI', persona: '', birthTime: '2026-01-01', userMessage: '' }
   const p1 = buildSystemPrompt({ ...base, userMessage: '做一个 three.js 的太阳系动画网页' })
   assert(p1.includes('## Coding Discipline'), '编程消息 → 注入 Coding Discipline')
   assert(p1.includes('Skeleton first'), '段内容完整（垂直切片）')

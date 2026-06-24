@@ -43,7 +43,7 @@ const TURN_TRACE_PATH    = paths.turnTraceHtml
 const BRAIN_UI_ASSET_ROOT = paths.brainUiAssetRoot
 const D3_VENDOR_PATH     = path.join(paths.resourcesDir, 'node_modules', 'd3', 'dist', 'd3.min.js')
 const SANDBOX_PATH       = paths.sandboxDir
-const DEFAULT_AGENT_NAME = '小白龙'
+const DEFAULT_AGENT_NAME = 'MyAI'
 const DEFAULT_API_HOST = '127.0.0.1'
 
 // card.action signals that are lifecycle/system-internal — stored in DB for passive injector use only, not pushed to the agent queue

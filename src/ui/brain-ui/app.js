@@ -20,7 +20,7 @@ renderBrainUiApp(document.body);
 const PHYSICS_STORAGE_KEY = "jarvis-brain-ui-physics";
 const ACTIVATION_WARMUP_KEY = "xiaobailong_activation_warmup_until";
 const MAX_CHAT_HISTORY = 60;
-const DEFAULT_AGENT_NAME = "小白龙";
+const DEFAULT_AGENT_NAME = "MyAI";
 const MEMORY_GRAPH_STORAGE_KEY = "xiaobailong-memory-graph-enabled";
 const MEMORY_GRAPH_ENABLED = localStorage.getItem(MEMORY_GRAPH_STORAGE_KEY) !== "false";
 
@@ -60,7 +60,7 @@ function defaultInputPlaceholder() {
 function setAgentName(nextName) {
   const normalized = String(nextName || "").trim() || DEFAULT_AGENT_NAME;
   agentName = normalized;
-  document.title = `${normalized} · Cognitive Surface`;
+  document.title = `${normalized} · MyAI Assistant`;
   if (brandNameEl) brandNameEl.textContent = `${normalized} AI Agent`;
   if (graphEl) graphEl.setAttribute("aria-label", `${normalized} memory graph`);
   const input = document.getElementById("msg-input");

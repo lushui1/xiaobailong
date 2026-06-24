@@ -122,7 +122,7 @@ function inferLabels(rules, text, limit = 4) {
 
 function inferProjects(text) {
   const projects = []
-  if (/xiaobailong/i.test(text) || /小白龙/.test(text)) projects.push('小白龙')
+  if (/xiaobailong/i.test(text) || /MyAI/.test(text)) projects.push('MyAI')
   if (/agent/i.test(text) && /memory|context|prompt/i.test(text)) projects.push('agent memory/context system')
   if (/electron/i.test(text)) projects.push('Electron desktop app')
   return uniq(projects).slice(0, 5)

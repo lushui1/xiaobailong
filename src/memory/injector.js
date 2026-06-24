@@ -223,8 +223,8 @@ export async function runInjector({ message, state, hint = '' }) {
     : null
 
   // 自我快照：常驻的"你刚才是怎样的你"。不分 L1/L2 / 不分 TICK，只要有 jarvis 历史就出。
-  // 注入器拿 agent_name 用作身份锚的开头（"你是 小白龙。..."）。
-  const agentName = getConfig('agent_name') || '小白龙'
+  // 注入器拿 agent_name 用作身份锚的开头（"你是 MyAI。..."）。
+  const agentName = getConfig('agent_name') || 'MyAI'
   const selfSnapshot = computeSelfSnapshot({ conversationWindow, actionLog, agentName })
 
   // Memory-Optimization v0.1 Phase 0：记录这一轮召回的"命中了什么/漏了什么"。

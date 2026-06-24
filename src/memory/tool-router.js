@@ -30,7 +30,7 @@ import { getStatus as getTickerStatus } from '../ticker.js'
 
 // ---- 工具分组 ----
 //
-// core：任何场景都注入。ACUI 工具默认带上（小白龙侧 Phase 1 决策，组件少 token 便宜）。
+// core：任何场景都注入。ACUI 工具默认带上（MyAI侧 Phase 1 决策，组件少 token 便宜）。
 const CORE_TOOLS = [
   'send_message',
   'recall_memory',
@@ -402,7 +402,7 @@ export function selectTools(ctx = {}) {
 
   // —— ActionLog 保活 ——
   // 上轮（或最近 10 次）调用过的工具强制带上：跨轮工作流不能因为关键词没命中就断链。
-  // 保活只覆盖小白龙的"已知工具"——installed 工具走单独的全注入路径。
+  // 保活只覆盖MyAI的"已知工具"——installed 工具走单独的全注入路径。
   // 被抑制的工具(如 ticker 跨 turn 抑制下的 set_tick_interval)跳过 —— 否则模型刚调过又被
   // ActionLog 拉回来,抑制完全失效。
   if (Array.isArray(recentActionLog)) {

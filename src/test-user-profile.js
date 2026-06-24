@@ -12,7 +12,7 @@ const profile = buildProfileFromSignals({
     { name: 'Figma' },
   ],
   personMemory: {
-    content: 'User is building 小白龙.',
+    content: 'User is building MyAI.',
     detail: 'Long-running AI agent with memory, context injection, and Electron desktop runtime.',
   },
   memories: [

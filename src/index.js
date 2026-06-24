@@ -1174,7 +1174,7 @@ async function runTurn(input, label, msg = null) {
 
     // 2. Build system prompt (stable hard-floor) + context block (per-round dynamic)
     const persona = getConfig('persona') || ''
-    const agentName = getConfig('agent_name') || '小白龙'
+    const agentName = getConfig('agent_name') || 'MyAI'
     const entities = getKnownEntities()
     const hasActiveTask = !!state.task
     const extraContextJoined = [presenceText, runtimeInjection.contextText, prefetchText, injection.uiSignalSummary, formatActiveUICards(injection.activeUICards), formatAIVideoPanel(getAIVideoPanelState())].filter(Boolean).join('\n\n')

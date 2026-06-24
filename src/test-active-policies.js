@@ -75,7 +75,7 @@ try {
     timestamp: ts,
   })
 
-  const screenshotMsg = '[ID:000099] 2026-06-11T01:00:00+08:00 [TUI] Please make the 小白龙 window fullscreen with F11, then take a screenshot and send it.'
+  const screenshotMsg = '[ID:000099] 2026-06-11T01:00:00+08:00 [TUI] Please make the MyAI window fullscreen with F11, then take a screenshot and send it.'
   const screenshotInjection = await runInjector({ message: screenshotMsg, state: {} })
   const screenshotIds = new Set((screenshotInjection.activePolicies || []).map(m => m.mem_id))
 

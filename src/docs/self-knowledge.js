@@ -1,4 +1,4 @@
-// 小白龙自知识文档 —— 解释自身的代码机制、架构与界面设计。
+// MyAI自知识文档 —— 解释自身的代码机制、架构与界面设计。
 // 工具清单一节由 auto-catalog.js 从 capabilities/schemas/ 自动生成，杜绝随版本漂移。
 
 import { buildToolCatalogText } from './auto-catalog.js'
@@ -13,14 +13,14 @@ const APP_VERSION = getAppVersion()
 export const SELF_KNOWLEDGE_TOPICS = {
   self_architecture: {
     id: 'self_architecture',
-    title: '小白龙架构与运行机制',
+    title: 'MyAI架构与运行机制',
     subtitle: 'How XiaoBaiLong Works',
     icon: '⚙',
-    summary: `小白龙（XiaoBaiLong）是一套 Electron + Node.js 的"持续意识"框架，当前版本 ${APP_VERSION}。它不是被动等待提问的聊天机器人，而是一个持续运行、自主感知、带长期记忆的 Agent。以下是当前版本的完整机制说明。`,
+    summary: `MyAI（XiaoBaiLong）是一套 Electron + Node.js 的"持续意识"框架，当前版本 ${APP_VERSION}。它不是被动等待提问的聊天机器人，而是一个持续运行、自主感知、带长期记忆的 Agent。以下是当前版本的完整机制说明。`,
     sections: [
       {
         title: '整体架构',
-        content: `小白龙由三层构成：
+        content: `MyAI由三层构成：
 
 ■ Electron 壳（electron/main.cjs）
   - 启动桌面窗口、系统托盘、自动更新、Focus Banner 子窗口
@@ -33,13 +33,13 @@ export const SELF_KNOWLEDGE_TOPICS = {
 
 ■ Brain UI 前端（src/ui/brain-ui/）
   - 运行在 Electron 渲染进程，通过 WebSocket + REST 与后端实时通信
-  - 详见"小白龙界面设计"文档主题（ui_design）
+  - 详见"MyAI界面设计"文档主题（ui_design）
 
 数据落在 SQLite（src/db.js）与 data/ 目录；运行配置在 config.json + 若干独立配置文件。`,
       },
       {
         title: '意识循环：L1 / L2 两种入口',
-        content: `小白龙不是"两个人格"，而是同一个 AI 的两种触发入口，共享同等的上下文质量（记忆、人物卡、思维、UI 状态）：
+        content: `MyAI不是"两个人格"，而是同一个 AI 的两种触发入口，共享同等的上下文质量（记忆、人物卡、思维、UI 状态）：
 
 ■ L1（用户消息触发）
   - 用户发消息时激活，本轮通常要回应
@@ -92,7 +92,7 @@ export const SELF_KNOWLEDGE_TOPICS = {
       },
       {
         title: '动态记忆池（核心机制）',
-        content: `小白龙的记忆不是简单的"存一段查一段"，而是一套"一切皆记忆 / 少即是强"的动态池——目标是每轮注入"合适的上下文"，不是"召回越多越好"。
+        content: `MyAI的记忆不是简单的"存一段查一段"，而是一套"一切皆记忆 / 少即是强"的动态池——目标是每轮注入"合适的上下文"，不是"召回越多越好"。
 
 ■ 短期：对话历史（SQLite messages/conversations）
   - 每轮持久化，按最近 N 条 + 时间窗口截取，带回合标记
@@ -151,7 +151,7 @@ Key 配置：serper / brave / tavily / jina / searxng，存在 config.json 顶�
       },
       {
         title: '上下文感知：环境采集',
-        content: `小白龙持续感知运行环境，结果进"补充上下文"：
+        content: `MyAI持续感知运行环境，结果进"补充上下文"：
   - context/gatherer.js —— 综合采集器，定时汇总
   - system-info —— CPU/内存/磁盘/电池/系统版本
   - geo-weather —— 城市、时区、国家代码 + 实时天气（用于平台选择，如 CN 走 B 站）
@@ -212,10 +212,10 @@ Key 配置：serper / brave / tavily / jina / searxng，存在 config.json 顶�
 
   ui_design: {
     id: 'ui_design',
-    title: '小白龙界面设计',
+    title: 'MyAI界面设计',
     subtitle: 'XiaoBaiLong UI & ACUI Design',
     icon: '🖥',
-    summary: '小白龙的界面叫 Brain UI，运行在 Electron 渲染进程。核心是 ACUI（Agent 控制 + 感知 双柱架构）：Agent 既能控制界面，也能感知界面状态。以下是界面各部分的设计说明。',
+    summary: 'MyAI的界面叫 Brain UI，运行在 Electron 渲染进程。核心是 ACUI（Agent 控制 + 感知 双柱架构）：Agent 既能控制界面，也能感知界面状态。以下是界面各部分的设计说明。',
     sections: [
       {
         title: 'Brain UI 总览',
@@ -230,7 +230,7 @@ Key 配置：serper / brave / tavily / jina / searxng，存在 config.json 顶�
       },
       {
         title: 'ACUI：控制 + 感知 双柱架构',
-        content: `ACUI（src/ui/brain-ui/acui/）让 Agent 既能"控制"界面也能"感知"界面，是小白龙区别于普通聊天框的关键。
+        content: `ACUI（src/ui/brain-ui/acui/）让 Agent 既能"控制"界面也能"感知"界面，是MyAI区别于普通聊天框的关键。
 
 ■ 模块：bootstrap.js（启动）、client.js（前端接收）、registry.js（组件注册表）、renderer.js（渲染）、components/（内置组件）
 ■ 三种执行模式（优先级 A > B > C）：
@@ -273,7 +273,7 @@ Key 配置：serper / brave / tavily / jina / searxng，存在 config.json 顶�
       },
       {
         title: 'Dashboard 风格规范',
-        content: `小白龙界面有一套统一的视觉规范，新增 UI 必须遵循：
+        content: `MyAI界面有一套统一的视觉规范，新增 UI 必须遵循：
   - 纯文本流，无卡片包裹、无滚动条
   - 颜色区分信息类型，但各类型亮度保持一致（不靠明暗对比抢眼）
   - 信息密度优先，少装饰
@@ -304,7 +304,7 @@ export function detectSelfKnowledgeTopic(text) {
 
   // 架构 / 运行机制相关
   if (
-    /(你的代码|你.*怎么运行|你.*怎么工作|你.*架构|你.*如何运作|小白龙.*代码|xiaobailong.*代码|你.*实现|代码机制|运行机制|技术架构|你.*内部|你.*系统|你.*模块|你.*是怎么|你.*如何思考|你.*心跳|意识循环|认知循环|动态记忆|记忆池|审视分身|ticker|queue\.js|control\.js|llm\.js|prompt\.js|memory.*机制|记忆.*(系统|机制)|工具.*调用|capability|executor|l1.*l2|l2.*l1|两个入口|react.*任务|self.?knowledge|自知识|自我感知)/.test(
+    /(你的代码|你.*怎么运行|你.*怎么工作|你.*架构|你.*如何运作|MyAI.*代码|xiaobailong.*代码|你.*实现|代码机制|运行机制|技术架构|你.*内部|你.*系统|你.*模块|你.*是怎么|你.*如何思考|你.*心跳|意识循环|认知循环|动态记忆|记忆池|审视分身|ticker|queue\.js|control\.js|llm\.js|prompt\.js|memory.*机制|记忆.*(系统|机制)|工具.*调用|capability|executor|l1.*l2|l2.*l1|两个入口|react.*任务|self.?knowledge|自知识|自我感知)/.test(
       t
     )
   ) {

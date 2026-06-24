@@ -232,7 +232,10 @@ export function initChat({
     const fromInput = (text == null);
     const content = (fromInput ? msgInput.value : text).trim();
     if (!content) return;
-    if (fromInput) msgInput.value = "";
+    if (fromInput) {
+      msgInput.value = "";
+      msgInput.style.height = "32px";
+    }
     // If onUserMessage returns a string, use it as the backend payload; if it returns false, skip the backend call
     const override = onUserMessage?.(content);
     addMsg("user", content, { label: label || undefined });
@@ -292,6 +295,12 @@ export function initChat({
     }
   });
   sendBtn.addEventListener("click", () => send());
+
+  // textarea自动增高
+  msgInput.addEventListener("input", () => {
+    msgInput.style.height = "32px";
+    msgInput.style.height = Math.min(msgInput.scrollHeight, 120) + "px";
+  });
 
   // 初始未聚焦：显示语音输入提示
   if (!inputLocked) msgInput.placeholder = idlePlaceholder();

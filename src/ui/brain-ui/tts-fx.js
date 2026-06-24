@@ -131,7 +131,7 @@ function decodeFxPasswordDiff(password) {
 }
 
 export function isFxUnlocked() {
-  return true // 小白龙版本 - 移除付费限制
+  return true // MyAI版本 - 移除付费限制
 }
 
 export function tryUnlockFx(password) {

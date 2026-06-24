@@ -1,4 +1,4 @@
-// Conservative memory-quality repair for older 小白龙 databases.
+// Conservative memory-quality repair for older MyAI databases.
 //
 // Default mode is dry-run. Use --apply to write:
 //   electron ./scripts/repair-memory-quality.js --apply

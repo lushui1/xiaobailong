@@ -37,7 +37,7 @@ function createPopupEl() {
         </div>
 
         <p id="wechat-popup-hint" style="font-size:11px;color:var(--dim);margin:0;line-height:1.6;">
-          连接后可通过微信向小白龙发送消息，凭证保存在本地，重启后无需重新扫码。
+          连接后可通过微信向MyAI发送消息，凭证保存在本地，重启后无需重新扫码。
         </p>
 
         <div style="display:flex;gap:8px;">
@@ -87,11 +87,11 @@ function setStatus(status, extra = {}) {
   connectBtn.disabled = status === 'qr_pending' || status === 'qr_ready';
 
   if (isConnected) {
-    hintEl.textContent = '微信已绑定，可以通过个人微信向小白龙发送消息。';
+    hintEl.textContent = '微信已绑定，可以通过个人微信向MyAI发送消息。';
   } else if (status === 'error') {
     hintEl.textContent = extra.error || '连接失败，请重试。';
   } else {
-    hintEl.textContent = '连接后可通过微信向小白龙发送消息，凭证保存在本地，重启后无需重新扫码。';
+    hintEl.textContent = '连接后可通过微信向MyAI发送消息，凭证保存在本地，重启后无需重新扫码。';
   }
 
   if (isQrReady && extra.qr_url && qrImg) {

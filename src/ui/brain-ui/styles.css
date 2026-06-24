@@ -1069,6 +1069,10 @@ body {
   font-size: 14px;
   font-family: inherit;
   padding: 6px 0;
+  resize: none;
+  overflow: hidden;
+  line-height: 1.5;
+  height: 32px;
 }
 
 #msg-input::placeholder { color: var(--dim); }

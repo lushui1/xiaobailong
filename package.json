@@ -1,8 +1,8 @@
 {
   "name": "xiaobailong",
-  "productName": "小白龙",
+  "productName": "MyAI",
   "version": "0.0.1",
-  "description": "小白龙 — 桌面 AI Agent，持续运行的个人数字助手",
+  "description": "MyAI — 桌面 AI Agent，持续运行的个人数字助手",
   "type": "module",
   "main": "electron/main.cjs",
   "author": {
@@ -56,7 +56,7 @@
   },
   "build": {
     "appId": "com.dking.xiaobailong",
-    "productName": "小白龙",
+    "productName": "MyAI",
     "artifactName": "${productName}-Setup-${version}.${ext}",
     "npmRebuild": false,
     "asar": true,
@@ -120,7 +120,7 @@
       "uninstallerSidebar": "build/uninstallerSidebar.bmp",
       "createDesktopShortcut": false,
       "createStartMenuShortcut": false,
-      "shortcutName": "小白龙"
+      "shortcutName": "MyAI"
     },
     "mac": {
       "icon": "build/icon.png",

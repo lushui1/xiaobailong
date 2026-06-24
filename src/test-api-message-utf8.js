@@ -20,7 +20,7 @@ try {
 
   const address = server.address()
   const baseUrl = `http://127.0.0.1:${address.port}`
-  const expected = `utf8_api_probe_${Date.now()} 中文保真测试：你好，小白龙！`
+  const expected = `utf8_api_probe_${Date.now()} 中文保真测试：你好，MyAI！`
   const body = JSON.stringify({
     from_id: 'ID:UTF8_API_TEST',
     channel: 'API_UTF8_TEST',

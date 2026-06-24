@@ -88,7 +88,7 @@ function isCacheFresh(location) {
 async function fetchWeatherData(location) {
   const url = `https://wttr.in/${encodeURIComponent(location)}?format=j1&lang=zh`
   const res = await globalThis.fetch(url, {
-    headers: { 'User-Agent': '小白龙/1.0 (+https://localhost)' },
+    headers: { 'User-Agent': 'MyAI/1.0 (+https://localhost)' },
     signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
   })
   if (!res.ok) throw new Error(`HTTP ${res.status}`)

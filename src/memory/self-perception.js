@@ -255,7 +255,7 @@ function summarizeRecentTools(actionLog = []) {
 }
 
 // 入口：返回 null 或一段 snapshot 文本（带身份锚）。
-export function computeSelfSnapshot({ conversationWindow = [], actionLog = [], agentName = '小白龙' } = {}) {
+export function computeSelfSnapshot({ conversationWindow = [], actionLog = [], agentName = 'MyAI' } = {}) {
   const rows = Array.isArray(conversationWindow) ? [...conversationWindow] : []
   rows.sort((a, b) => (b?.id ?? 0) - (a?.id ?? 0))
   const jarvisRows = rows.filter(r => r?.role === 'jarvis')
