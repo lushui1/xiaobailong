@@ -1,30 +1,30 @@
 :root {
-  --bg0: #111821;
-  --bg1: #172231;
-  --bg-deep: #0d141d;
-  --ink: #f3f5fb;
-  --ink2: #a2adbd;
-  --dim: #778397;
-  --line: rgba(150, 169, 198, 0.13);
-  --line-strong: rgba(164, 183, 214, 0.32);
-  --panel: rgba(20, 28, 40, 0.78);
-  --panel-raised: rgba(26, 36, 50, 0.70);
-  --console-bg: rgba(22, 31, 44, 0.78);
-  --cool: #4f8cff;
-  --warm: #ff9f1c;
-  --ok: #39d98a;
-  --warn: #f59e0b;
-  --danger: #f87171;
-  --node-low: #213652;
-  --node-high: #ffbe6b;
-  --glow-halo: rgba(255, 159, 28, 0.16);
-  --glow-tint1: rgba(255, 159, 28, 0.12);
-  --glow-tint2: rgba(79, 140, 255, 0.08);
-  --link-stroke: rgba(255, 159, 28, 0.22);
-  --shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.18);
-  --shadow-console: 0 12px 32px rgba(0, 0, 0, 0.22);
-  --shadow-pop: 0 8px 22px rgba(0, 0, 0, 0.20);
-  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  --bg0: #0a0e14;
+  --bg1: #0f1923;
+  --bg-deep: #060a10;
+  --ink: #e8f0f8;
+  --ink2: #8fa4b8;
+  --dim: #5a7088;
+  --line: rgba(100, 200, 255, 0.10);
+  --line-strong: rgba(100, 200, 255, 0.25);
+  --panel: rgba(10, 18, 28, 0.82);
+  --panel-raised: rgba(15, 25, 38, 0.75);
+  --console-bg: rgba(12, 20, 32, 0.82);
+  --cool: #00d4ff;
+  --warm: #00ffc8;
+  --ok: #00ff88;
+  --warn: #ffaa00;
+  --danger: #ff4466;
+  --node-low: #0a2a3a;
+  --node-high: #00d4ff;
+  --glow-halo: rgba(0, 212, 255, 0.15);
+  --glow-tint1: rgba(0, 212, 255, 0.10);
+  --glow-tint2: rgba(0, 255, 200, 0.08);
+  --link-stroke: rgba(0, 212, 255, 0.20);
+  --shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.25);
+  --shadow-console: 0 12px 32px rgba(0, 0, 0, 0.30);
+  --shadow-pop: 0 8px 22px rgba(0, 0, 0, 0.28);
+  --shadow-inset: inset 0 1px 0 rgba(0, 212, 255, 0.06);
 }
 
 [data-theme="phosphor"] {
