@@ -9,77 +9,34 @@ const createGraphStage = () => `
 `;
 
 const createPrimaryPanel = () => `
-<aside id="panel-l1" class="panel">
-  <header class="panel-identity">
+<aside id="panel-l1" class="panel sidebar-nav">
+  <div class="sidebar-brand">
     <div class="brand-mark"></div>
-    <div class="brand-copy">
-      <div class="eyebrow">AI 助手</div>
-      <div class="brand-title" id="agent-brand-name">MyAI Assistant</div>
+  </div>
+
+  <nav class="sidebar-icons">
+    <button class="sidebar-icon active" id="sidebar-chat" title="聊天" type="button">
+      <span class="sidebar-icon-glyph">💬</span>
+      <span class="sidebar-icon-label">聊天</span>
+    </button>
+    <button class="sidebar-icon" id="sidebar-voice" title="语音" type="button">
+      <span class="sidebar-icon-glyph">🎤</span>
+      <span class="sidebar-icon-label">语音</span>
+    </button>
+    <button class="sidebar-icon" id="sidebar-graph" title="节点图" type="button">
+      <span class="sidebar-icon-glyph">◉</span>
+      <span class="sidebar-icon-label">图谱</span>
+    </button>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="ai-activity" id="ai-activity">
+      <span class="ai-activity-dot" id="ai-activity-dot"></span>
     </div>
-    <button class="voice-btn" id="voice-btn" title="麦克风 开/关" type="button">🎤</button>
-    <button class="video-btn" id="video-btn" title="视频模式 (V)" type="button" hidden>⊞</button>
-    <button class="music-btn" id="music-btn" title="音乐模式 (M)" type="button" hidden>♪</button>
-    <button class="settings-btn" id="settings-btn" title="设置" type="button">⚙</button>
-  </header>
-
-  <div class="stream-meta">
-    <div>
-      <div class="stream-title-text">用户消息处理器</div>
-      <!-- <div class="stream-subtitle">user message · react</div> -->
-    </div>
-    <span class="pill" id="pill-l1">实时</span>
-  </div>
-
-  <!-- AI 当前正在做什么：纯派生展示，从 tool_call 事件流自动归类，AI 不需要做任何额外动作。
-       北极星：通信问题靠界面侧派生可视化解决，不逼 AI 学人开口。 -->
-  <div class="ai-activity" id="ai-activity">
-    <span class="ai-activity-dot" id="ai-activity-dot"></span>
-    <span class="ai-activity-label" id="ai-activity-label">空闲</span>
-    <span class="ai-activity-detail" id="ai-activity-detail"></span>
-  </div>
-
-  ${createVoicePanel()}
-
-  <div class="legend" id="legend"></div>
-
-  <div class="stream">
-    <div class="stream-inner" id="si-l1"></div>
-  </div>
-
-  <div class="panel-actions">
-    <button class="reset-view" id="reset-view-btn" type="button">重置节点图</button>
-
-    <section class="physics-control" id="physics-control">
-      <button class="physics-toggle" id="physics-toggle" type="button" aria-expanded="false">
-        <span class="physics-toggle-label">图谱调节</span>
-        <span class="physics-toggle-icon">▾</span>
-      </button>
-      <div class="physics-panel" id="physics-panel">
-        <div class="physics-panel-inner">
-          <div class="physics-field">
-            <div class="physics-field-head">
-              <label class="physics-field-label" for="gravity-slider">引力</label>
-              <span class="physics-field-value" id="gravity-value">1.00x</span>
-            </div>
-            <input class="physics-slider" id="gravity-slider" type="range" min="0" max="5" step="0.02" value="2">
-          </div>
-          <div class="physics-field">
-            <div class="physics-field-head">
-              <label class="physics-field-label" for="repulsion-slider">斥力</label>
-              <span class="physics-field-value" id="repulsion-value">1.00x</span>
-            </div>
-            <input class="physics-slider" id="repulsion-slider" type="range" min="0" max="5" step="0.02" value="2">
-          </div>
-          <div class="physics-field">
-            <div class="physics-field-head">
-              <label class="physics-field-label" for="node-size-slider">节点大小</label>
-              <span class="physics-field-value" id="node-size-value">1.00x</span>
-            </div>
-            <input class="physics-slider" id="node-size-slider" type="range" min="0" max="5" step="0.02" value="2">
-          </div>
-        </div>
-      </div>
-    </section>
+    <button class="sidebar-icon" id="settings-btn" title="设置" type="button">
+      <span class="sidebar-icon-glyph">⚙</span>
+      <span class="sidebar-icon-label">设置</span>
+    </button>
   </div>
 </aside>
 `;
@@ -132,14 +89,32 @@ const createSecondaryPanel = () => `
 
 const createConsole = () => `
 <section class="console" id="chat-area">
+  <div class="console-header">
+    <span class="console-header-dot"></span>
+    <span class="console-header-title">MyAI</span>
+    <span class="console-header-sep"></span>
+    <span class="console-header-subtitle">Personal AI Agent</span>
+    <div class="console-header-metrics">
+      <div class="header-metric">
+        <span class="header-metric-label">tok/s</span>
+        <span class="header-metric-value" id="header-tok-rate">—</span>
+      </div>
+      <div class="header-metric">
+        <span class="header-metric-label">mem</span>
+        <span class="header-metric-value" id="header-node-count">—</span>
+      </div>
+    </div>
+    <button class="console-header-btn" id="toggle-l2-btn" title="切换监控面板 ]">◉ 监控</button>
+  </div>
   <div id="chat-history">
     <div id="chat-messages"></div>
   </div>
   <div id="input-row">
+    <div class="composer-resize" id="composer-resize"></div>
     <div id="slash-menu" class="slash-menu" role="listbox" aria-label="命令" hidden></div>
     <span class="prompt-mark">▸</span>
-    <textarea id="msg-input" placeholder="输入消息…（Shift+Enter 换行）" rows="1" autocomplete="off"></textarea>
-    <button id="send-btn" type="button">发送</button>
+    <textarea id="msg-input" placeholder="输入消息…（Shift+Enter 换行，拖动顶部横线调整高度）" rows="1" autocomplete="off"></textarea>
+    <button id="send-btn" type="button">SEND</button>
   </div>
 </section>
 `;
@@ -971,12 +946,16 @@ const createImagePanel = () => `
 `;
 
 const createPanelTabs = () => `
-<button id="panel-l1-tab" class="panel-tab panel-tab-left" aria-label="切换左面板" title="切换左面板 [ "></button>
 <button id="panel-l2-tab" class="panel-tab panel-tab-right" aria-label="切换右面板" title="切换右面板 ] "></button>
 `;
 
 export function createBrainUiMarkup() {
   return [
+    '<div class="scanline"></div>',
+    '<div class="hud-corner hud-tl"></div>',
+    '<div class="hud-corner hud-tr"></div>',
+    '<div class="hud-corner hud-bl"></div>',
+    '<div class="hud-corner hud-br"></div>',
     createGraphStage(),
     createPrimaryPanel(),
     createSecondaryPanel(),
@@ -991,6 +970,7 @@ export function createBrainUiMarkup() {
     createWorldcupPanel(),
     createPersonCardPanel(),
     createDocPanel(),
+    '<div class="statusbar"><div class="statusbar-item"><div class="statusbar-dot"></div><span>CORE ONLINE</span></div><div class="statusbar-item"><span id="statusbar-mem">MEM: —</span></div><div class="statusbar-item"><span id="statusbar-queue">QUEUE: —</span></div><div class="statusbar-item" style="margin-left:auto"><span>MYAI v0.0.1</span></div></div>',
   ].join("\n\n");
 }
 

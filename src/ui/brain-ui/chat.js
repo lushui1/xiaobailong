@@ -299,8 +299,36 @@ export function initChat({
   // textarea自动增高
   msgInput.addEventListener("input", () => {
     msgInput.style.height = "32px";
-    msgInput.style.height = Math.min(msgInput.scrollHeight, 120) + "px";
+    msgInput.style.height = Math.min(msgInput.scrollHeight, 200) + "px";
   });
+
+  // ★ 输入框顶部拖拽调整高度
+  const composerResize = document.getElementById("composer-resize");
+  if (composerResize) {
+    let isDragging = false;
+    let startY = 0;
+    let startH = 0;
+    composerResize.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      startY = e.clientY;
+      startH = chatArea.querySelector("#input-row").offsetHeight;
+      document.body.style.cursor = "ns-resize";
+      e.preventDefault();
+    });
+    document.addEventListener("mousemove", (e) => {
+      if (!isDragging) return;
+      const delta = startY - e.clientY;
+      const newH = Math.max(60, Math.min(400, startH + delta));
+      chatArea.querySelector("#input-row").style.height = newH + "px";
+      chatArea.querySelector("#input-row").style.flex = "0 0 " + newH + "px";
+    });
+    document.addEventListener("mouseup", () => {
+      if (isDragging) {
+        isDragging = false;
+        document.body.style.cursor = "";
+      }
+    });
+  }
 
   // 初始未聚焦：显示语音输入提示
   if (!inputLocked) msgInput.placeholder = idlePlaceholder();
